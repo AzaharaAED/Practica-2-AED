@@ -314,10 +314,35 @@ ggplot(data=Dosis.Medicina2, aes(x=Dosis, y=Efectividad, group=Complemento)) +
 ### **Ejercicio 4**
 
 * Carga el fichero ``Ejercicio4_Data.Rdata``. Examina las variables que tiene dicho dataset.
+```{r}
+load('data/Ejercicio4_Data.Rdata')
+```
+
 * Representa un gráfico de puntos, en el que se muestre la fecha en el eje $x$ y las ventas en el eje $y$. Queremos que los datos de cada fabricante sean de un color distinto. ¿Es este gráfico válido para evaluar la evolución de las ventas de cada fabricante?
+```{r}
+grafico7 <- ggplot(data=DatosEjer4, mapping=aes(x=Fecha, y=Ventas, colour=Fabricante))+geom_point()
+grafico7
+```
+
 * Representa un gráfico como el anterior en el que se muestre la línea que une los puntos que antes has representado.
+```{r}
+grafico7 <- ggplot(data=DatosEjer4, mapping=aes(x=Fecha, y=Ventas, colour=Fabricante))+geom_line()
+grafico7
+```
+
 * Modifica el gráfico anterior para que la tendencia de cada fabricante este trazada con un tipo de línea diferente.
+```{r}
+grafico7 <- ggplot(data=DatosEjer4, mapping=aes(x=Fecha, y=Ventas, colour=Fabricante, linetype=Fabricante))+geom_line()
+grafico7
+```
+
 * Añade el siguiente título al gráfico *"Ventas mensuales de diferentes compañías tecnológicas"*.
+```{r}
+grafico7 <- ggplot(data=DatosEjer4, mapping=aes(x=Fecha, y=Ventas, colour=Fabricante, linetype=Fabricante))+geom_line() + labs(title='Ventas mensuales de diferentes compañías tecnológicas')
+grafico7
+ggsave('figs/Ejercicio4.pdf')
+```
+
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio4.pdf``.
 
 ```{r Solucion ejercicio 4}
