@@ -326,19 +326,19 @@ grafico7
 
 * Representa un gráfico como el anterior en el que se muestre la línea que une los puntos que antes has representado.
 ```{r}
-grafico7 <- ggplot(data=DatosEjer4, mapping=aes(x=Fecha, y=Ventas, colour=Fabricante))+geom_line()
+grafico7 <- ggplot(data=DatosEjer4, mapping=aes(x=Fecha, y=Ventas, colour=Fabricante))+geom_point()+geom_line()
 grafico7
 ```
 
 * Modifica el gráfico anterior para que la tendencia de cada fabricante este trazada con un tipo de línea diferente.
 ```{r}
-grafico7 <- ggplot(data=DatosEjer4, mapping=aes(x=Fecha, y=Ventas, colour=Fabricante, linetype=Fabricante))+geom_line()
+grafico7 <- ggplot(data=DatosEjer4, mapping=aes(x=Fecha, y=Ventas, colour=Fabricante))+geom_point()+geom_line(aes(linetype=Fabricante))
 grafico7
 ```
 
 * Añade el siguiente título al gráfico *"Ventas mensuales de diferentes compañías tecnológicas"*.
 ```{r}
-grafico7 <- ggplot(data=DatosEjer4, mapping=aes(x=Fecha, y=Ventas, colour=Fabricante, linetype=Fabricante))+geom_line() + labs(title='Ventas mensuales de diferentes compañías tecnológicas')
+grafico7 <- ggplot(data=DatosEjer4, mapping=aes(x=Fecha, y=Ventas, colour=Fabricante))+geom_point()+geom_line(aes(linetype=Fabricante)) + labs(title='Ventas mensuales de diferentes compañías tecnológicas')
 grafico7
 ggsave('figs/Ejercicio4.pdf')
 ```
@@ -402,10 +402,17 @@ El fichero ``iceRiver.RData`` contiene información del caudal de dos ríos isla
   * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio5.pdf``.
 
 ```{r Solucion ejercicio 6 }
+load('data/iceRiver.RData')
+library(tseries)
 
+?tseries::ice.river
+
+grafico8 <- ggplot(data=ice.river.df, mapping=aes(x=time))+ geom_line(aes(y=flow.vat),colour='red') +geom_line(aes(y=flow.jok),colour='blue')
+#Haces una primera capa con las cosas que son generales y eso arrastrará a las siguientes capas, donde ya especificas lo que quieres en cada linea.
+grafico8
 
 ```
-
+Como los flujos de cada rio estan representados en diferentes variables, no podemos hacer un grafico lineal simple y establecer que el color de cada linea sea segun el rio. Podríamos reorganizar los datos, creando una variable que se llame flujo donde alacenaríamos los datos de los flujos de ambos rios y luego añadiriamos otra variable llamada rio donde los valores fuesen: vat y jok. Entonces, ya podríamos colorear las lineas según rio.
 
 ## Gráficos boxplot con **ggplot2**
 
